@@ -4,5 +4,5 @@ export const profile = {
   phone: '15653321193',
   wechat: 'cuipitengjiaoji',
   email: '1291043470@qq.com',
-  resume: '/assets/documents/resume.pdf',
+  resume: '/assets/documents/resume.pdf?v=20261028',
 };
