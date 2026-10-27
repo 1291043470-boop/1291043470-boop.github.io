@@ -55,7 +55,7 @@ export const projects = [
   {
     slug:'re-university', order:2, title:'Re：University', type:'游戏 Demo', engine:'Godot', engineShort:'Godot', role:'独立作品',
     subtitle:'生存冒险 RPG', tags:['生存','冒险','探索'],
-    cover:'/assets/images/re-frame-1.webp',poster:'/assets/images/re-frame-1.webp',
+    cover:'/assets/images/re-map.webp',poster:'/assets/images/re-map.webp',coverFit:'contain',
     intro:'以研究所为探索场景的生存冒险 RPG Demo，通过门禁、关键物品、文件线索与资源分布组织探索过程。',
     video:'/assets/media/re-university/index.m3u8', videoLabel:'Demo 演示视频', duration:'09:52',
     facts:[['制作方式','独立作品'],['开发引擎','Godot'],['关卡规模','26 个房间场景'],['制作时间','2026.06 — 2026.07']],
