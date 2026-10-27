@@ -1,0 +1,7 @@
+import fs from 'node:fs';import path from 'node:path';import {projects} from './content/projects.mjs';
+const root=path.resolve('docs');let count=0;
+function walk(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(d=>d.isDirectory()?walk(path.join(dir,d.name)):[path.join(dir,d.name)]);}
+for(const file of walk(root)){if(fs.statSync(file).size>25*1024*1024)throw new Error('Asset exceeds 25 MiB: '+file);if(file.endsWith('.html')){const html=fs.readFileSync(file,'utf8');if(/精选作品|待确认|待补充|正式版|@@/.test(html))throw new Error('Draft text in '+file);for(const [,url]of html.matchAll(/(?:src|href|data-hls|data-image)="(\/[^"#]*)"/g)){const target=path.join(root,decodeURIComponent(url));if(!fs.existsSync(target))throw new Error('Missing asset '+url+' in '+file);}count++;}}
+const home=fs.readFileSync(path.join(root,'index.html'),'utf8');if(home.indexOf('href="/projects/jinhuo/"')>home.indexOf('href="/projects/re-university/"'))throw new Error('Incorrect project order');
+for(const p of projects){const playlist=path.join(root,p.video);if(!fs.existsSync(playlist))throw new Error('Missing video '+p.slug);const text=fs.readFileSync(playlist,'utf8');if(!text.includes('#EXT-X-ENDLIST'))throw new Error('Video not complete '+p.slug);for(const segment of text.split(/\r?\n/).filter(x=>x&&!x.startsWith('#'))){if(!fs.existsSync(path.join(path.dirname(playlist),segment)))throw new Error('Missing segment '+segment);}}
+console.log(`Verified ${count} pages, local links, complete video segments, project order and asset sizes.`);

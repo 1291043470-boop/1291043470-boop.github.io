@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://1291043470-boop.github.io/sitemap.xml
